@@ -17,6 +17,7 @@ if (!global.mongoose) {
   global.mongoose = cached;
 }
 
+// this is a helper function to connect to MongoDB
 async function connectDB() {
   if (!MONGODB_URI) {
     throw new Error(
