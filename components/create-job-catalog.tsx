@@ -1,14 +1,19 @@
+"use client";
+
 import { Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { useState } from "react";
 
 interface CreateJobApplicationCatalogProps {
   columnId: string;
@@ -19,8 +24,10 @@ export default function CreateJobApplicationCatalog({
   columnId,
   boardId,
 }: CreateJobApplicationCatalogProps) {
+  const [open, setOpen] = useState<boolean>(false);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <Button
           variant="outline"
@@ -56,7 +63,37 @@ export default function CreateJobApplicationCatalog({
                 <Input id="salary" placeholder="e.g., $100k - $150k" />
               </div>
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="jobUrl">Job URL</Label>
+              <Input id="jobUrl" placeholder="https://example.com/job" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="tags">Tags (comma-separated)</Label>
+              <Input id="tags" placeholder="React, Next.js, Tailwind CSS" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                rows={3}
+                placeholder="Describe the job role and responsibilities"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="notes">Notes</Label>
+              <Textarea id="notes" rows={4} />
+            </div>
           </div>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button type="submit">Add</Button>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
